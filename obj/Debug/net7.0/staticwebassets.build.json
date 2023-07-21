@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "1+lqof+1MjVw2Ox3VZvzIbDxOetVmBghSRhA6U6mW8c=",
+  "Source": "Project_ASP.Net_And_Angular",
+  "BasePath": "_content/Project_ASP.Net_And_Angular",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Project_ASP.Net_And_Angular\\wwwroot",
+      "Source": "Project_ASP.Net_And_Angular",
+      "ContentRoot": "C:\\Users\\minht\\source\\repos\\Project_ASP.Net_And_Angular\\Project_ASP.Net_And_Angular\\wwwroot\\",
+      "BasePath": "_content/Project_ASP.Net_And_Angular",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
