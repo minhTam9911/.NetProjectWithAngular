@@ -4,24 +4,23 @@ using Project_ASP.Net_And_Angular.Services;
 using System.Diagnostics;
 
 namespace Project_ASP.Net_And_Angular.Controllers;
-[Route("policy")]
-public class PolicyController : Controller
+[Route("hospital")]
+public class HospitalInforController : Controller
 {
-
-    private IPolicy policyService;
-    public PolicyController(IPolicy policy)
+    private IHospitalInfor hospitalService;
+    public HospitalInforController(IHospitalInfor hospitalService)
     {
-        policyService = policy;
+        this.hospitalService = hospitalService;
     }
 
     [Produces("application/json")]
     [Consumes("application/json")]
     [HttpPost("create")]
-    public IActionResult create([FromBody] Policy policy)
+    public IActionResult create([FromBody] HospitalInfo hospital)
     {
         try
         {
-            return Ok(policyService.create(policy));
+            return Ok(hospitalService.create(hospital));
         }
         catch (Exception ex)
         {
@@ -37,7 +36,7 @@ public class PolicyController : Controller
     {
         try
         {
-            return Ok(policyService.get());
+            return Ok(hospitalService.get());
         }
         catch (Exception ex)
         {
@@ -53,7 +52,7 @@ public class PolicyController : Controller
     {
         try
         {
-            return Ok(policyService.findById(id));
+            return Ok(hospitalService.findById(id));
         }
         catch (Exception ex)
         {
@@ -69,7 +68,7 @@ public class PolicyController : Controller
     {
         try
         {
-            return Ok(policyService.delete(id));
+            return Ok(hospitalService.delete(id));
         }
         catch (Exception ex)
         {
@@ -80,11 +79,11 @@ public class PolicyController : Controller
     [Produces("application/json")]
     [Consumes("application/json")]
     [HttpPut("update")]
-    public IActionResult update([FromBody] Policy policy)
+    public IActionResult update([FromBody] HospitalInfo hospital)
     {
         try
         {
-            return Ok(policyService.update(policy));
+            return Ok(hospitalService.update(hospital));
         }
         catch (Exception ex)
         {

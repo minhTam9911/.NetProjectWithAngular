@@ -20,7 +20,7 @@ public class CompanyDetailController : Controller
     {
         try
         {
-            return Ok(new { result = companyService.create(companyDetail) });
+            return Ok(companyService.create(companyDetail));
         }
         catch(Exception ex)
         {
@@ -68,7 +68,7 @@ public class CompanyDetailController : Controller
     {
         try
         {
-            return Ok(new { result = companyService.delete(id) });
+            return Ok(companyService.delete(id));
         }
         catch (Exception ex)
         {
@@ -83,7 +83,7 @@ public class CompanyDetailController : Controller
     {
         try
         {
-            return Ok(new { result = companyService.update(company) });
+            return Ok(companyService.update(company));
         }
         catch (Exception ex)
         {

@@ -5,7 +5,7 @@ namespace Project_ASP.Net_And_Angular.Models;
 
 public partial class HospitalInfo
 {
-    public long HospitalId { get; set; }
+    public int HospitalId { get; set; }
 
     public string? HospitalName { get; set; }
 
@@ -14,4 +14,6 @@ public partial class HospitalInfo
     public string? Location { get; set; }
 
     public string? Url { get; set; }
+
+    public virtual ICollection<Policy> Policies { get; set; } = new List<Policy>();
 }

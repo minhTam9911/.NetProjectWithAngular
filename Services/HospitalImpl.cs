@@ -1,19 +1,18 @@
 ﻿using Project_ASP.Net_And_Angular.Models;
 using System.Diagnostics;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Project_ASP.Net_And_Angular.Services;
 
-public class CompanyDetailImpl : ICompanyDetail
+public class HospitalImpl : IHospitalInfor
 {
     private DatabaseContext db;
-    public CompanyDetailImpl(DatabaseContext db) { this.db = db; }
+    public HospitalImpl(DatabaseContext db) { this.db = db; }
 
-    public bool create(CompanyDetail company)
+    public bool create(HospitalInfo hospital)
     {
         try
         {
-            db.CompanyDetails.Add(company);
+            db.HospitalInfos.Add(hospital);
             return db.SaveChanges() > 0;
         }
         catch (Exception ex)
@@ -27,16 +26,16 @@ public class CompanyDetailImpl : ICompanyDetail
     {
         try
         {
-            if (db.Policies.Where(p => p.Companyid == id).Count() > 0)
+            if(db.Policies.Where(p=>p.Medicalid == id).Count() > 0)
             {
                 return false;
             }
             else
             {
-                db.CompanyDetails.Remove(db.CompanyDetails.Find(id));
+                db.HospitalInfos.Remove(db.HospitalInfos.Find(id));
                 return db.SaveChanges() > 0;
             }
-
+           
         }
         catch (Exception ex)
         {
@@ -49,13 +48,13 @@ public class CompanyDetailImpl : ICompanyDetail
     {
         try
         {
-            return db.CompanyDetails.Where(c => c.CompanyId == id).Select(c => new
+            return db.HospitalInfos.Where(c => c.HospitalId == id).Select(c => new
             {
-                companyId = c.CompanyId,
-                companyName = c.CompanyName,
-                address = c.Address,
-                phone = c.Phone,
-                companyUrl = c.CompanyUrl
+                hospitalId = c.HospitalId,
+                hospitalName = c.HospitalName,
+                phoneNo = c.PhoneNo,
+                location = c.Location,
+                url = c.Url
             }).FirstOrDefault();
         }
         catch (Exception ex)
@@ -69,13 +68,13 @@ public class CompanyDetailImpl : ICompanyDetail
     {
         try
         {
-            return db.CompanyDetails.Select(c => new
+            return db.HospitalInfos.Select(c => new
             {
-                companyId = c.CompanyId,
-                companyName = c.CompanyName,
-                address = c.Address,
-                phone = c.Phone,
-                companyUrl = c.CompanyUrl
+                hospitalId = c.HospitalId,
+                hospitalName = c.HospitalName,
+                phoneNo = c.PhoneNo,
+                location = c.Location,
+                url = c.Url
             }).ToList();
         }
         catch (Exception ex)
@@ -85,11 +84,11 @@ public class CompanyDetailImpl : ICompanyDetail
         }
     }
 
-    public bool update(CompanyDetail company)
+    public bool update(HospitalInfo hospital)
     {
         try
         {
-            db.Entry(company).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.Entry(hospital).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             return db.SaveChanges() > 0;
         }
         catch (Exception ex)

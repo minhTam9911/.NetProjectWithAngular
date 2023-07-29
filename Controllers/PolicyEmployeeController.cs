@@ -1,33 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Project_ASP.Net_And_Angular.Models;
 using Project_ASP.Net_And_Angular.Services;
 using System.Diagnostics;
 
 namespace Project_ASP.Net_And_Angular.Controllers;
-[Route("policy")]
-public class PolicyController : Controller
+[Route("policy-employee")]
+public class PolicyEmployeeController : Controller
 {
-
-    private IPolicy policyService;
-    public PolicyController(IPolicy policy)
+    private IPolicyEmloyee policyEmloyeeService;
+    public PolicyEmployeeController(IPolicyEmloyee policyEmloyeeService)
     {
-        policyService = policy;
-    }
-
-    [Produces("application/json")]
-    [Consumes("application/json")]
-    [HttpPost("create")]
-    public IActionResult create([FromBody] Policy policy)
-    {
-        try
-        {
-            return Ok(policyService.create(policy));
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-            return BadRequest(ex.Message);
-        }
+        this.policyEmloyeeService = policyEmloyeeService;
     }
 
     [Produces("application/json")]
@@ -37,7 +21,7 @@ public class PolicyController : Controller
     {
         try
         {
-            return Ok(policyService.get());
+            return Ok(policyEmloyeeService.get());
         }
         catch (Exception ex)
         {
@@ -48,12 +32,13 @@ public class PolicyController : Controller
 
     [Produces("application/json")]
     [Consumes("application/json")]
-    [HttpGet("find/{id}")]
-    public IActionResult find(int id)
+    [HttpPost("create")]
+    public IActionResult create([FromBody] PoliciesonEmployee policiesonEmployee)
     {
+       // var data = JsonConvert.DeserializeObject<PoliciesonEmployee>(strPolicyEmp);
         try
         {
-            return Ok(policyService.findById(id));
+            return Ok(policyEmloyeeService.create(policiesonEmployee));
         }
         catch (Exception ex)
         {
@@ -65,11 +50,11 @@ public class PolicyController : Controller
     [Produces("application/json")]
     [Consumes("application/json")]
     [HttpDelete("delete/{id}")]
-    public IActionResult delete(int id)
+    public IActionResult delete(long id)
     {
         try
         {
-            return Ok(policyService.delete(id));
+            return Ok(policyEmloyeeService.delete(id));
         }
         catch (Exception ex)
         {
@@ -77,14 +62,16 @@ public class PolicyController : Controller
             return BadRequest(ex.Message);
         }
     }
+
+
     [Produces("application/json")]
     [Consumes("application/json")]
     [HttpPut("update")]
-    public IActionResult update([FromBody] Policy policy)
+    public IActionResult update([FromBody] PoliciesonEmployee policiesonEmployee)
     {
         try
         {
-            return Ok(policyService.update(policy));
+            return Ok(policyEmloyeeService.update(policiesonEmployee));
         }
         catch (Exception ex)
         {
@@ -92,4 +79,24 @@ public class PolicyController : Controller
             return BadRequest(ex.Message);
         }
     }
+
+
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    [HttpGet("find/{id}")]
+    public IActionResult Find(int id)
+    {
+        try
+        {
+            return Ok(policyEmloyeeService.findById(id));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+
 }

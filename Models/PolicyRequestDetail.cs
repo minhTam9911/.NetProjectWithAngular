@@ -25,5 +25,7 @@ public partial class PolicyRequestDetail
 
     public string? Status { get; set; }
 
+    public virtual EmpRegister EmpnoNavigation { get; set; } = null!;
+
     public virtual ICollection<PolicyApprovalDetail> PolicyApprovalDetails { get; set; } = new List<PolicyApprovalDetail>();
 }

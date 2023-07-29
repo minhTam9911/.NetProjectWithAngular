@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Project_ASP.Net_And_Angular.Models;
 
@@ -9,6 +10,7 @@ public partial class EmpRegister
 
     public string? Designation { get; set; }
 
+    
     public DateTime? Joindate { get; set; }
 
     public decimal? Salary { get; set; }
@@ -31,10 +33,6 @@ public partial class EmpRegister
 
     public string? City { get; set; }
 
-    public string? Policystatus { get; set; }
-
-    public int? Policyid { get; set; }
-
     public string? Rolename { get; set; }
 
     public bool? AccountStatus { get; set; }
@@ -42,4 +40,8 @@ public partial class EmpRegister
     public string? SecurityCode { get; set; }
 
     public string? Email { get; set; }
+
+    public virtual ICollection<PoliciesonEmployee> PoliciesonEmployees { get; set; } = new List<PoliciesonEmployee>();
+
+    public virtual ICollection<PolicyRequestDetail> PolicyRequestDetails { get; set; } = new List<PolicyRequestDetail>();
 }

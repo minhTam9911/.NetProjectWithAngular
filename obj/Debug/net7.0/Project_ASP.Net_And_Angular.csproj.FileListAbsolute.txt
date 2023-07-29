@@ -73,3 +73,9 @@ C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angu
 C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angular\obj\Debug\net7.0\Project_ASP.Net_And_Angular.genruntimeconfig.cache
 C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angular\obj\Debug\net7.0\ref\Project_ASP.Net_And_Angular.dll
 C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angular\bin\Debug\net7.0\Project_ASP.Net_And_Angular.staticwebassets.runtime.json
+C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angular\bin\Debug\net7.0\Microsoft.OpenApi.dll
+C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angular\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angular\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angular\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angular\obj\Debug\net7.0\Project_ASP.Net_And_Angular.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\minht\source\repos\Project_ASP.Net_And_Angular\Project_ASP.Net_And_Angular\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

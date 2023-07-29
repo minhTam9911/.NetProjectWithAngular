@@ -5,6 +5,8 @@ namespace Project_ASP.Net_And_Angular.Models;
 
 public partial class PolicyTotalDescription
 {
+    public long Id { get; set; }
+
     public int Policyid { get; set; }
 
     public string? Policyname { get; set; }
@@ -19,7 +21,7 @@ public partial class PolicyTotalDescription
 
     public string CompanyName { get; set; } = null!;
 
-    public string? Medicalid { get; set; }
+    public string? Medicalname { get; set; }
 
     public virtual Policy Policy { get; set; } = null!;
 }

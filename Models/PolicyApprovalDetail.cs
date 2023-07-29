@@ -13,7 +13,7 @@ public partial class PolicyApprovalDetail
 
     public decimal? Amount { get; set; }
 
-    public string? Status { get; set; }
+    public bool? Status { get; set; }
 
     public string? Reason { get; set; }
 

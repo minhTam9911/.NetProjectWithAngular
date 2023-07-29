@@ -15,4 +15,10 @@ public interface IEmpRegister
     bool existEmail(string email);
     bool existUserName(string userName);
     dynamic login (string userName, string password);
+    bool sendSecurityCode(string email);
+    bool verify(string code, string email);
+    bool forgotPas(string email, string username);
+    bool checkExistEmailAndUsername(string email, string username);
+    bool changeForgotPass(int id, string newPass);
+    public bool updateNoSavePass(int id, EmpRegister register);
 }

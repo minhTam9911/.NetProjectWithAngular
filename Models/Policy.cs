@@ -17,9 +17,15 @@ public partial class Policy
 
     public int? Companyid { get; set; }
 
-    public string? Medicalid { get; set; }
+    public int? Medicalid { get; set; }
 
     public virtual CompanyDetail? Company { get; set; }
 
+    public virtual HospitalInfo? Medical { get; set; }
+
+    public virtual ICollection<PoliciesonEmployee> PoliciesonEmployees { get; set; } = new List<PoliciesonEmployee>();
+
     public virtual PolicyApprovalDetail? PolicyApprovalDetail { get; set; }
+
+    public virtual ICollection<PolicyTotalDescription> PolicyTotalDescriptions { get; set; } = new List<PolicyTotalDescription>();
 }

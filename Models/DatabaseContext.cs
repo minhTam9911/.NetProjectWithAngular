@@ -15,6 +15,8 @@ public partial class DatabaseContext : DbContext
     {
     }
 
+    public virtual DbSet<Account> Accounts { get; set; }
+
     public virtual DbSet<AdminLogin> AdminLogins { get; set; }
 
     public virtual DbSet<CompanyDetail> CompanyDetails { get; set; }
@@ -23,7 +25,7 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<HospitalInfo> HospitalInfos { get; set; }
 
-    public virtual DbSet<Policiesonemployee> Policiesonemployees { get; set; }
+    public virtual DbSet<PoliciesonEmployee> PoliciesonEmployees { get; set; }
 
     public virtual DbSet<Policy> Policies { get; set; }
 
@@ -33,13 +35,43 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<PolicyTotalDescription> PolicyTotalDescriptions { get; set; }
 
-    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-PV86VKQR\\SQLEXPRESS;Database=HealthInsuranceSystem;user id=sa;password=112233;trusted_connection=true;encrypt=false");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Account>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Account__3213E83FC62C0B9F");
+
+            entity.ToTable("Account");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Email)
+                .HasMaxLength(150)
+                .IsUnicode(false)
+                .HasColumnName("email");
+            entity.Property(e => e.Password)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.Role)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("role");
+            entity.Property(e => e.SecurityCode)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("securityCode");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.UserName)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<AdminLogin>(entity =>
         {
-            entity.HasKey(e => e.UserName).HasName("PK__AdminLog__C9F2845794402A70");
+            entity.HasKey(e => e.UserName).HasName("PK__AdminLog__C9F284575AF8B36F");
 
             entity.ToTable("AdminLogin");
 
@@ -51,7 +83,7 @@ public partial class DatabaseContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("email");
             entity.Property(e => e.Password)
-                .HasMaxLength(50)
+                .HasMaxLength(300)
                 .IsUnicode(false);
             entity.Property(e => e.SecurityCode)
                 .HasMaxLength(10)
@@ -61,7 +93,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<CompanyDetail>(entity =>
         {
-            entity.HasKey(e => e.CompanyId).HasName("PK__CompanyD__2D971CAC3E618D67");
+            entity.HasKey(e => e.CompanyId).HasName("PK__CompanyD__2D971CACBF123E70");
 
             entity.Property(e => e.Address)
                 .HasMaxLength(150)
@@ -80,7 +112,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<EmpRegister>(entity =>
         {
-            entity.HasKey(e => e.Empno).HasName("PK__EmpRegis__AF4C318A867EF360");
+            entity.HasKey(e => e.Empno).HasName("PK__EmpRegis__AF4C318A8ADECF30");
 
             entity.ToTable("EmpRegister");
 
@@ -123,16 +155,11 @@ public partial class DatabaseContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("lastname");
             entity.Property(e => e.Password)
-                .HasMaxLength(500)
+                .HasMaxLength(300)
                 .IsUnicode(false)
                 .HasColumnName("password");
-            entity.Property(e => e.Policyid).HasColumnName("policyid");
-            entity.Property(e => e.Policystatus)
-                .HasMaxLength(30)
-                .IsUnicode(false)
-                .HasColumnName("policystatus");
             entity.Property(e => e.Rolename)
-                .HasMaxLength(50)
+                .HasMaxLength(5)
                 .IsUnicode(false)
                 .HasDefaultValueSql("('user')")
                 .HasColumnName("rolename");
@@ -148,35 +175,36 @@ public partial class DatabaseContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("state");
             entity.Property(e => e.Username)
-                .HasMaxLength(500)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("username");
         });
 
         modelBuilder.Entity<HospitalInfo>(entity =>
         {
-            entity.HasKey(e => e.HospitalId).HasName("PK__Hospital__38C2E5AFEED6B314");
+            entity.HasKey(e => e.HospitalId).HasName("PK__Hospital__38C2E5AFCB814294");
 
             entity.ToTable("HospitalInfo");
 
             entity.Property(e => e.HospitalName)
-                .HasMaxLength(50)
+                .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.Location)
-                .HasMaxLength(50)
+                .HasMaxLength(500)
                 .IsUnicode(false);
             entity.Property(e => e.PhoneNo)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Url)
-                .HasMaxLength(50)
+                .HasMaxLength(255)
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<Policiesonemployee>(entity =>
+        modelBuilder.Entity<PoliciesonEmployee>(entity =>
         {
-            entity.HasNoKey();
+            entity.HasKey(e => e.Id).HasName("PK__Policies__3213E83FC10E51E5");
 
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Companyid).HasColumnName("companyid");
             entity.Property(e => e.Companyname)
                 .HasMaxLength(50)
@@ -186,10 +214,6 @@ public partial class DatabaseContext : DbContext
                 .HasColumnType("decimal(7, 2)")
                 .HasColumnName("emi");
             entity.Property(e => e.Empno).HasColumnName("empno");
-            entity.Property(e => e.Medical)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("medical");
             entity.Property(e => e.Policyamount)
                 .HasColumnType("money")
                 .HasColumnName("policyamount");
@@ -201,13 +225,14 @@ public partial class DatabaseContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("policyname");
+            entity.Property(e => e.Policystatus).HasColumnName("policystatus");
 
-            entity.HasOne(d => d.EmpnoNavigation).WithMany()
+            entity.HasOne(d => d.EmpnoNavigation).WithMany(p => p.PoliciesonEmployees)
                 .HasForeignKey(d => d.Empno)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Policiesonemployees_EmpRegister");
 
-            entity.HasOne(d => d.Policy).WithMany()
+            entity.HasOne(d => d.Policy).WithMany(p => p.PoliciesonEmployees)
                 .HasForeignKey(d => d.Policyid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Policiesonemployees_Policies");
@@ -215,7 +240,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Policy>(entity =>
         {
-            entity.HasKey(e => e.Policyid).HasName("PK__Policies__78E0AD0A80AB432E");
+            entity.HasKey(e => e.Policyid).HasName("PK__Policies__78E0AD0A44825DB9");
 
             entity.Property(e => e.Policyid).HasColumnName("policyid");
             entity.Property(e => e.Amount)
@@ -223,10 +248,7 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("amount");
             entity.Property(e => e.Companyid).HasColumnName("companyid");
             entity.Property(e => e.Emi).HasColumnType("money");
-            entity.Property(e => e.Medicalid)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("medicalid");
+            entity.Property(e => e.Medicalid).HasColumnName("medicalid");
             entity.Property(e => e.Policydesc)
                 .HasColumnType("text")
                 .HasColumnName("policydesc");
@@ -238,20 +260,20 @@ public partial class DatabaseContext : DbContext
             entity.HasOne(d => d.Company).WithMany(p => p.Policies)
                 .HasForeignKey(d => d.Companyid)
                 .HasConstraintName("FK_CompanyDetails_Policies");
+
+            entity.HasOne(d => d.Medical).WithMany(p => p.Policies)
+                .HasForeignKey(d => d.Medicalid)
+                .HasConstraintName("FK_Hospital_Policies");
         });
 
         modelBuilder.Entity<PolicyApprovalDetail>(entity =>
         {
-            entity.HasKey(e => e.PolicyId).HasName("PK__PolicyAp__2E1339A408B02396");
+            entity.HasKey(e => e.PolicyId).HasName("PK__PolicyAp__2E1339A45738EBDC");
 
             entity.Property(e => e.PolicyId).ValueGeneratedNever();
             entity.Property(e => e.Amount).HasColumnType("money");
             entity.Property(e => e.Date).HasColumnType("datetime");
             entity.Property(e => e.Reason).HasColumnType("text");
-            entity.Property(e => e.Status)
-                .HasMaxLength(3)
-                .IsUnicode(false)
-                .IsFixedLength();
 
             entity.HasOne(d => d.Policy).WithOne(p => p.PolicyApprovalDetail)
                 .HasForeignKey<PolicyApprovalDetail>(d => d.PolicyId)
@@ -260,12 +282,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Request).WithMany(p => p.PolicyApprovalDetails)
                 .HasForeignKey(d => d.RequestId)
-                .HasConstraintName("FK_PolicyApprovalDetails_PolicyRequestDetails");
+                .HasConstraintName("FK_PolicyRequestDetails_PolicyApprovalDetails");
         });
 
         modelBuilder.Entity<PolicyRequestDetail>(entity =>
         {
-            entity.HasKey(e => e.RequestId).HasName("PK__PolicyRe__33A8517A1FFB891C");
+            entity.HasKey(e => e.RequestId).HasName("PK__PolicyRe__33A8517A1D1B6E4C");
 
             entity.Property(e => e.CompanyName)
                 .HasMaxLength(50)
@@ -279,24 +301,30 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.EmpnoNavigation).WithMany(p => p.PolicyRequestDetails)
+                .HasForeignKey(d => d.Empno)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_EmpRegister_PolicyRequestDetails");
         });
 
         modelBuilder.Entity<PolicyTotalDescription>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("PolicyTotalDescription");
+            entity.HasKey(e => e.Id).HasName("PK__PolicyTo__3213E83F9C4ABAEF");
 
+            entity.ToTable("PolicyTotalDescription");
+
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CompanyName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Emi)
                 .HasColumnType("money")
                 .HasColumnName("EMI");
-            entity.Property(e => e.Medicalid)
+            entity.Property(e => e.Medicalname)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasColumnName("medicalid");
+                .HasColumnName("medicalname");
             entity.Property(e => e.Policyamount)
                 .HasColumnType("money")
                 .HasColumnName("policyamount");
@@ -311,7 +339,7 @@ public partial class DatabaseContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("policyname");
 
-            entity.HasOne(d => d.Policy).WithMany()
+            entity.HasOne(d => d.Policy).WithMany(p => p.PolicyTotalDescriptions)
                 .HasForeignKey(d => d.Policyid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PolicyTotalDescription_Policies");

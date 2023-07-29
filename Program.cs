@@ -7,13 +7,24 @@ var stringConnect = builder.Configuration["ConnectionStrings:Default"];
 builder.Services.AddDbContext<DatabaseContext>(option =>option.UseLazyLoadingProxies().UseSqlServer(stringConnect));
 builder.Services.AddControllers();
 builder.Services.AddCors();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICompanyDetail,CompanyDetailImpl>();
 builder.Services.AddScoped<IPolicy, PolicyImpl>();
 builder.Services.AddScoped<IEmpRegister,EmpRegisterImpl>();
+builder.Services.AddScoped<IHospitalInfor, HospitalImpl>();
+builder.Services.AddScoped<IUserAcc, UserAccImpl>();
+builder.Services.AddScoped<IPolicyEmloyee, PolicyEmployeeImpl>();
+builder.Services.AddScoped<IPolicyRequest, PolicyRequestImpl>();
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();
 app.MapControllers();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 app.UseCors(builder => builder
                 .AllowAnyHeader()
                 .AllowAnyMethod()

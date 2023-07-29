@@ -3,13 +3,17 @@ using System.Collections.Generic;
 
 namespace Project_ASP.Net_And_Angular.Models;
 
-public partial class Policiesonemployee
+public partial class PoliciesonEmployee
 {
+    public long Id { get; set; }
+
     public int Empno { get; set; }
 
     public int Policyid { get; set; }
 
     public string Policyname { get; set; } = null!;
+
+    public bool? Policystatus { get; set; }
 
     public decimal Policyamount { get; set; }
 
@@ -20,8 +24,6 @@ public partial class Policiesonemployee
     public int Companyid { get; set; }
 
     public string Companyname { get; set; } = null!;
-
-    public string Medical { get; set; } = null!;
 
     public virtual EmpRegister EmpnoNavigation { get; set; } = null!;
 
