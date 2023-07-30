@@ -11,17 +11,26 @@ public class PolicyRequestImpl : IPolicyRequest
         this.db = db;
     }
 
-    public bool create(PolicyRequestDetail policyRequestDetail)
+    public  int create(PolicyRequestDetail policyRequestDetail)
     {
         try
         {
-            db.PolicyRequestDetails.Add(policyRequestDetail);
-            return db.SaveChanges() > 0;
+            if(db.PolicyRequestDetails.Where(pr=>pr.PolicyId ==policyRequestDetail.PolicyId && pr.Empno == policyRequestDetail.Empno).Count() > 0)
+            {
+                return 0;
+            }
+            else
+            {
+                db.PolicyRequestDetails.Add(policyRequestDetail);
+                db.SaveChanges();
+                return policyRequestDetail.RequestId;
+            }
+            
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            return false;
+            return 0;
         }
     }
 
@@ -31,6 +40,32 @@ public class PolicyRequestImpl : IPolicyRequest
         {
             db.PolicyRequestDetails.Remove(db.PolicyRequestDetails.Find(id));
             return db.SaveChanges() > 0;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return false;
+        }
+    }
+
+    public dynamic findByColEmpNo(int id)
+    {
+        try
+        {
+            return db.PolicyRequestDetails.Where(pr => pr.Empno == id).Select(pr => new
+            {
+                requestId = pr.RequestId,
+                requestDate = pr.RequestDate.Value.ToString("dd-MM-yyyy"),
+                empNo = pr.Empno,
+                policyId = pr.PolicyId,
+                policyName = pr.Policyname,
+                policyAmount = pr.PolicyAmount,
+                emi = pr.Emi,
+                companyId = pr.CompanyId,
+                companyName = pr.CompanyName,
+                status = pr.Status
+
+            }).ToList();
         }
         catch (Exception ex)
         {

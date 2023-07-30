@@ -25,7 +25,7 @@ public partial class Policy
 
     public virtual ICollection<PoliciesonEmployee> PoliciesonEmployees { get; set; } = new List<PoliciesonEmployee>();
 
-    public virtual PolicyApprovalDetail? PolicyApprovalDetail { get; set; }
+    public virtual ICollection<PolicyApprovalDetail> PolicyApprovalDetails { get; set; } = new List<PolicyApprovalDetail>();
 
     public virtual ICollection<PolicyTotalDescription> PolicyTotalDescriptions { get; set; } = new List<PolicyTotalDescription>();
 }

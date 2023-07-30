@@ -48,6 +48,23 @@ public class PolicyEmployeeController : Controller
     }
 
     [Produces("application/json")]
+    [Consumes("multipart/form-data")]
+    [HttpPost("create2")]
+    public IActionResult create2(string strPoliciesonEmployee)
+    {
+         var data = JsonConvert.DeserializeObject<PoliciesonEmployee>(strPoliciesonEmployee);
+        try
+        {
+            return Ok(policyEmloyeeService.create(data));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [Produces("application/json")]
     [Consumes("application/json")]
     [HttpDelete("delete/{id}")]
     public IActionResult delete(long id)
@@ -89,6 +106,22 @@ public class PolicyEmployeeController : Controller
         try
         {
             return Ok(policyEmloyeeService.findById(id));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    [HttpGet("find-col-empno/{id}")]
+    public IActionResult findColEmpNo(int id)
+    {
+        try
+        {
+            return Ok(policyEmloyeeService.findByColEmpno(id));
         }
         catch (Exception ex)
         {

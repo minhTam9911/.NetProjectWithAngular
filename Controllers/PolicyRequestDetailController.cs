@@ -107,4 +107,21 @@ public class PolicyRequestDetailController : Controller
             return BadRequest(ex.Message);
         }
     }
+
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    [HttpGet("find-emp-no/{id}")]
+    public IActionResult findColEmpno(int id)
+    {
+
+        try
+        {
+            return Ok(policyRequestService.findByColEmpNo(id));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
 }

@@ -15,8 +15,16 @@ public class PolicyEmployeeImpl : IPolicyEmloyee
     {
         try
         {
-            db.PoliciesonEmployees.Add(policyEmployee);
-            return db.SaveChanges() > 0;
+            if(db.PoliciesonEmployees.Where(pe=>pe.Policyid == policyEmployee.Policyid && pe.Empno == policyEmployee.Empno).Count() > 0)
+            {
+                return false;
+            }
+            else
+            {
+                db.PoliciesonEmployees.Add(policyEmployee);
+                return db.SaveChanges() > 0;
+            }
+           
         }catch(Exception ex)
         {
             Debug.WriteLine(ex);
@@ -30,6 +38,31 @@ public class PolicyEmployeeImpl : IPolicyEmloyee
         {
             db.PoliciesonEmployees.Remove(db.PoliciesonEmployees.Find(id));
             return db.SaveChanges() > 0;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return false;
+        }
+    }
+
+    public dynamic findByColEmpno(int empno)
+    {
+        try
+        {
+            return db.PoliciesonEmployees.Where(pe => pe.Empno == empno).Select(pe => new
+            {
+                id = pe.Id,
+                empNo = pe.Empno,
+                policyId = pe.Policyid,
+                policyName = pe.Policyname,
+                policyStatus = pe.Policystatus,
+                policyAmount = pe.Policyamount,
+                policyDuration = pe.Policyduration,
+                emi = pe.Emi,
+                companyId = pe.Companyid,
+                companyName = pe.Companyname
+            }).ToList();
         }
         catch (Exception ex)
         {

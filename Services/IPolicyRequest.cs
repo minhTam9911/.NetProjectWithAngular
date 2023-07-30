@@ -4,9 +4,10 @@ namespace Project_ASP.Net_And_Angular.Services;
 
 public interface IPolicyRequest
 {
-    bool create(PolicyRequestDetail policyRequestDetail);
+    int create(PolicyRequestDetail policyRequestDetail);
     dynamic get();
     dynamic findById(int id);
     bool update(PolicyRequestDetail policyRequestDetail);
     bool delete(int id);
+    dynamic findByColEmpNo(int id);
 }

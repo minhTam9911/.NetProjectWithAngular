@@ -9,4 +9,5 @@ public interface IPolicyEmloyee
     dynamic findById(int id);
     bool update(PoliciesonEmployee policyEmployee);
     bool delete(long id);
+    dynamic findByColEmpno(int empno);
 }

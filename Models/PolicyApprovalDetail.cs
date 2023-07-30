@@ -13,9 +13,11 @@ public partial class PolicyApprovalDetail
 
     public decimal? Amount { get; set; }
 
-    public bool? Status { get; set; }
+    public string? Status { get; set; }
 
     public string? Reason { get; set; }
+
+    public int Id { get; set; }
 
     public virtual Policy Policy { get; set; } = null!;
 

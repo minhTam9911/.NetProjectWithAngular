@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Project_ASP.Net_And_Angular.Models;
 
@@ -10,7 +9,6 @@ public partial class EmpRegister
 
     public string? Designation { get; set; }
 
-    
     public DateTime? Joindate { get; set; }
 
     public decimal? Salary { get; set; }

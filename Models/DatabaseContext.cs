@@ -35,9 +35,9 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<PolicyTotalDescription> PolicyTotalDescriptions { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-PV86VKQR\\SQLEXPRESS;Database=HealthInsuranceSystem;user id=sa;password=112233;trusted_connection=true;encrypt=false");
+//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseSqlServer("Server=LAPTOP-PV86VKQR\\SQLEXPRESS;Database=HealthInsuranceSystem;user id=sa;password=112233;trusted_connection=true;encrypt=false");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -268,15 +268,16 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<PolicyApprovalDetail>(entity =>
         {
-            entity.HasKey(e => e.PolicyId).HasName("PK__PolicyAp__2E1339A45738EBDC");
-
-            entity.Property(e => e.PolicyId).ValueGeneratedNever();
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Amount).HasColumnType("money");
             entity.Property(e => e.Date).HasColumnType("datetime");
             entity.Property(e => e.Reason).HasColumnType("text");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false);
 
-            entity.HasOne(d => d.Policy).WithOne(p => p.PolicyApprovalDetail)
-                .HasForeignKey<PolicyApprovalDetail>(d => d.PolicyId)
+            entity.HasOne(d => d.Policy).WithMany(p => p.PolicyApprovalDetails)
+                .HasForeignKey(d => d.PolicyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PolicyApprovalDetails_Policies");
 

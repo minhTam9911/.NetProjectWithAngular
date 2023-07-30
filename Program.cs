@@ -16,6 +16,7 @@ builder.Services.AddScoped<IHospitalInfor, HospitalImpl>();
 builder.Services.AddScoped<IUserAcc, UserAccImpl>();
 builder.Services.AddScoped<IPolicyEmloyee, PolicyEmployeeImpl>();
 builder.Services.AddScoped<IPolicyRequest, PolicyRequestImpl>();
+builder.Services.AddScoped<IPolicyApproval, PolicyApprovalImpl>();
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();
