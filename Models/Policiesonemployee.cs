@@ -25,6 +25,10 @@ public partial class PoliciesonEmployee
 
     public string Companyname { get; set; } = null!;
 
+    public DateTime? StartDate { get; set; }
+
+    public DateTime? EndDate { get; set; }
+
     public virtual EmpRegister EmpnoNavigation { get; set; } = null!;
 
     public virtual Policy Policy { get; set; } = null!;

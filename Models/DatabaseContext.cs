@@ -35,9 +35,11 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<PolicyTotalDescription> PolicyTotalDescriptions { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=LAPTOP-PV86VKQR\\SQLEXPRESS;Database=HealthInsuranceSystem;user id=sa;password=112233;trusted_connection=true;encrypt=false");
+    public virtual DbSet<TransactionDetail> TransactionDetails { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-PV86VKQR\\SQLEXPRESS;Database=HealthInsuranceSystem;user id=sa;password=112233;trusted_connection=true;encrypt=false");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -214,6 +216,9 @@ public partial class DatabaseContext : DbContext
                 .HasColumnType("decimal(7, 2)")
                 .HasColumnName("emi");
             entity.Property(e => e.Empno).HasColumnName("empno");
+            entity.Property(e => e.EndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("endDate");
             entity.Property(e => e.Policyamount)
                 .HasColumnType("money")
                 .HasColumnName("policyamount");
@@ -226,6 +231,9 @@ public partial class DatabaseContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("policyname");
             entity.Property(e => e.Policystatus).HasColumnName("policystatus");
+            entity.Property(e => e.StartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("startDate");
 
             entity.HasOne(d => d.EmpnoNavigation).WithMany(p => p.PoliciesonEmployees)
                 .HasForeignKey(d => d.Empno)
@@ -344,6 +352,20 @@ public partial class DatabaseContext : DbContext
                 .HasForeignKey(d => d.Policyid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PolicyTotalDescription_Policies");
+        });
+
+        modelBuilder.Entity<TransactionDetail>(entity =>
+        {
+            entity.HasKey(e => e.TransactionId).HasName("PK__Transact__55433A4B4E7CA6DA");
+
+            entity.ToTable("TransactionDetail");
+
+            entity.Property(e => e.TransactionId).HasColumnName("TransactionID");
+            entity.Property(e => e.AccountantId).HasColumnName("accountantId");
+            entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.EmpNo).HasColumnName("empNo");
+            entity.Property(e => e.PolicyEmployeeId).HasColumnName("policyEmployeeId");
+            entity.Property(e => e.TransactionDate).HasColumnType("date");
         });
 
         OnModelCreatingPartial(modelBuilder);

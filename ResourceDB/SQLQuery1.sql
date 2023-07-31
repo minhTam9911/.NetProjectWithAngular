@@ -87,6 +87,8 @@ policyduration decimal(7,2) not null,
 emi decimal(7,2)  not null,
 companyid int not null,
 companyname varchar(50) not null,
+startDate datetime,
+endDate datetime
 )
 go
 
@@ -128,6 +130,17 @@ EMI money null,
 policydurationinMonths int null,
 CompanyName varchar(50) not null,
 medicalname varchar(50) null
+)
+go
+
+
+CREATE TABLE TransactionDetail (
+   TransactionID INT IDENTITY(1,1) PRIMARY KEY,
+   TransactionDate DATE,
+   Amount DECIMAL(10, 2),
+   empNo int, 
+   policyEmployeeId int,
+   accountantId int
 )
 go
 
