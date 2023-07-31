@@ -17,6 +17,8 @@ builder.Services.AddScoped<IUserAcc, UserAccImpl>();
 builder.Services.AddScoped<IPolicyEmloyee, PolicyEmployeeImpl>();
 builder.Services.AddScoped<IPolicyRequest, PolicyRequestImpl>();
 builder.Services.AddScoped<IPolicyApproval, PolicyApprovalImpl>();
+builder.Services.AddScoped<ITransaction, TransactionImpl>();
+
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();

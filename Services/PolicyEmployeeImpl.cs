@@ -61,7 +61,9 @@ public class PolicyEmployeeImpl : IPolicyEmloyee
                 policyDuration = pe.Policyduration,
                 emi = pe.Emi,
                 companyId = pe.Companyid,
-                companyName = pe.Companyname
+                companyName = pe.Companyname,
+                startDate=pe.StartDate.Value.ToString("dd-MM-yyyy"),
+                endDate=pe.EndDate.Value.ToString("dd-MM-yyyy")
             }).ToList();
         }
         catch (Exception ex)
@@ -86,7 +88,9 @@ public class PolicyEmployeeImpl : IPolicyEmloyee
                 policyDuration = pe.Policyduration,
                 emi = pe.Emi,
                 companyId = pe.Companyid,
-                companyName = pe.Companyname
+                companyName = pe.Companyname,
+                startDate = pe.StartDate.Value.ToString("dd-MM-yyyy"),
+                endDate = pe.EndDate.Value.ToString("dd-MM-yyyy")
             }).FirstOrDefault() ;
         }
         catch (Exception ex)
@@ -111,7 +115,9 @@ public class PolicyEmployeeImpl : IPolicyEmloyee
                 policyDuration = pe.Policyduration,
                 emi = pe.Emi,
                 companyId = pe.Companyid,
-                companyName = pe.Companyname
+                companyName = pe.Companyname,
+                startDate = pe.StartDate.Value.ToString("dd-MM-yyyy"),
+                endDate = pe.EndDate.Value.ToString("dd-MM-yyyy")
             }).ToList();
         }
         catch (Exception ex)

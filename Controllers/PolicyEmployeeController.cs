@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Project_ASP.Net_And_Angular.Models;
 using Project_ASP.Net_And_Angular.Services;
 using System.Diagnostics;
+using System.Globalization;
+using System.Runtime.Serialization;
+using System.Text.Json;
 
 namespace Project_ASP.Net_And_Angular.Controllers;
 [Route("policy-employee")]
@@ -52,7 +56,10 @@ public class PolicyEmployeeController : Controller
     [HttpPost("create2")]
     public IActionResult create2(string strPoliciesonEmployee)
     {
-         var data = JsonConvert.DeserializeObject<PoliciesonEmployee>(strPoliciesonEmployee);
+         var data = JsonConvert.DeserializeObject<PoliciesonEmployee>(strPoliciesonEmployee, new IsoDateTimeConverter
+         {
+            DateTimeFormat = "dd-MM-yyyy"
+         });
         try
         {
             return Ok(policyEmloyeeService.create(data));
@@ -89,6 +96,27 @@ public class PolicyEmployeeController : Controller
         try
         {
             return Ok(policyEmloyeeService.update(policiesonEmployee));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [Produces("application/json")]
+    [Consumes("multipart/form-data")]
+    [HttpPut("update2")]
+    public IActionResult update2(string strpoliciesonEmployee)
+    {
+        
+        var data = JsonConvert.DeserializeObject<PoliciesonEmployee>(strpoliciesonEmployee, new IsoDateTimeConverter
+        {
+            DateTimeFormat = "dd-MM-yyyy"
+        });
+        try
+        {
+            return Ok(policyEmloyeeService.update(data));
         }
         catch (Exception ex)
         {
