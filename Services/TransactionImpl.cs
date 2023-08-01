@@ -39,6 +39,27 @@ public class TransactionImpl : ITransaction
         }
     }
 
+    public dynamic findByColAccountant(int id)
+    {
+        try
+        {
+            return db.TransactionDetails.Where(t => t.AccountantId == id).Select(t => new
+            {
+                TransactionID = t.TransactionId,
+                TransactionDate = t.TransactionDate,
+                Amount = t.Amount,
+                empNo = t.EmpNo,
+                policyEmployeeId = t.PolicyEmployeeId,
+                accountantId = t.AccountantId
+            }).ToList();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return false;
+        }
+    }
+
     public dynamic findByColEmpno(int empno)
     {
         try
@@ -99,6 +120,32 @@ public class TransactionImpl : ITransaction
         {
             Debug.WriteLine(ex);
             return false;
+        }
+    }
+
+    public decimal moneyAll()
+    {
+        try
+        {
+            return (decimal)db.TransactionDetails.Sum(t => t.Amount);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return 0;
+        }
+    }
+
+    public decimal moneyFindByColEmpno(int empno)
+    {
+        try
+        {
+            return (decimal)db.TransactionDetails.Where(t=>t.EmpNo ==empno).Sum(t => t.Amount);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return 0;
         }
     }
 }

@@ -10,4 +10,7 @@ public interface ITransaction
 //    bool update(PoliciesonEmployee policyEmployee);
     bool delete(int id);
     dynamic findByColEmpno(int empno);
+    dynamic findByColAccountant(int id);
+    decimal moneyFindByColEmpno(int empno);
+    decimal moneyAll();
 }

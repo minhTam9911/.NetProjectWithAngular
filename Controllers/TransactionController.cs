@@ -125,4 +125,57 @@ public class TransactionController : Controller
             return BadRequest(ex.Message);
         }
     }
+
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    [HttpGet("find-col-account/{id}")]
+    public IActionResult findColAccount(int id)
+    {
+
+        try
+        {
+            return Ok(transactionService.findByColAccountant(id));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    [HttpGet("money-all")]
+    public IActionResult moneyAll()
+    {
+
+        try
+        {
+            return Ok(transactionService.moneyAll());
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+    [Produces("application/json")]
+    [Consumes("application/json")]
+    [HttpGet("money-col-empno/{id}")]
+    public IActionResult moneyColEmpno(int id)
+    {
+
+        try
+        {
+            return Ok(transactionService.moneyFindByColEmpno(id));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
 }
