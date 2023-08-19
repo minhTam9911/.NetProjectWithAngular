@@ -36,6 +36,22 @@ public class PolicyEmployeeController : Controller
 
     [Produces("application/json")]
     [Consumes("application/json")]
+    [HttpGet("exist-pe/{p}/{e}")]
+    public IActionResult existpe(int p, int e)
+    {
+        try
+        {
+            return Ok(policyEmloyeeService.existPE(p,e));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [Produces("application/json")]
+    [Consumes("application/json")]
     [HttpPost("create")]
     public IActionResult create([FromBody] PoliciesonEmployee policiesonEmployee)
     {

@@ -142,7 +142,7 @@ CREATE TABLE TransactionDetail (
    policyEmployeeId int,
    accountantId int
 )
-go
+
 
 ALTER TABLE Policies
 ADD CONSTRAINT FK_CompanyDetails_Policies FOREIGN KEY (companyId)

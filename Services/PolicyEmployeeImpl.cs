@@ -46,6 +46,18 @@ public class PolicyEmployeeImpl : IPolicyEmloyee
         }
     }
 
+    public bool existPE(int policyId, int empNo)
+    {
+        try
+        {
+            return db.PoliciesonEmployees.Where(pe=>pe.Empno== empNo && pe.Policyid ==policyId).Count() > 0;
+        }catch(Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return false;
+        }
+    }
+
     public dynamic findByColEmpno(int empno)
     {
         try
